@@ -1,0 +1,18 @@
+version: '3'
+services:
+  www:
+    image: php:8.1.1-apache
+    volumes:
+      - "./php/:/var/www/html"
+      - "/mnt/mserver:/mserver"
+    ports:
+      - 9002:80
+      # - 4443:443
+    networks:
+      - lamp-docker
+    command: >
+      sh -c "docker-php-ext-install pdo pdo_mysql mysqli && apache2-foreground"
+  
+networks:
+  lamp-docker:
+    driver: bridge
